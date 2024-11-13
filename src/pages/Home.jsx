@@ -3,7 +3,7 @@ import CardElement from "../components/CardElement"
 
 export default function Home() {
     return (
-        <div className="px-6 py-4">
+        <div className="px-6 py-4 text-[white]">
         <div className="space-y-3">
           <h1 className="font-bold text-[rgb(255,255,255)] text-xl">Artistas</h1>
           <div id="artist-scroll-id" className=" w-[90vw] flex flex-row space-x-2 overflow-y-scroll">
@@ -16,14 +16,14 @@ export default function Home() {
           </div>
         </div>
         <div className="space-y-3">
-          <h1 className="font-bold text-[white] text-xl">Seus gêneros</h1>
+          <h1 className="font-bold text-xl">Seus gêneros</h1>
           <div className="flex">
             <CardElement CardTitle="Todos"></CardElement>
             <CardElement CardTitle="Todos"></CardElement>
           </div>
         </div>
         <div className="space-y-3">
-          <h1 className="font-bold text-[white] text-xl">Seus principais</h1>
+          <h1 className="font-bold text-xl">Seus principais</h1>
           <div className="flex flex-wrap">
             <CardElement CardTitle="Todos"></CardElement>
             <CardElement CardTitle="Todos"></CardElement>

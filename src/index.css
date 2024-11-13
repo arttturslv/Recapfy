@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+#artist-scroll-id::-webkit-scrollbar {
+    width: 0px;             
+}
+  

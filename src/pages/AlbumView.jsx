@@ -46,8 +46,8 @@ export default function AlbumView(
     return (
         <div ref={backgroundRef} className="text-[white] h-full flex flex-col ">
 
-            <div className="py-4 px-6  h-56 bg-light">
-                <img crossOrigin='anonymous' ref={imageRef} className="left-0 top-0 w-full h-56 object-cover absolute" src={ImageSource} alt="" />
+            <div className="py-4 px-6 h-64 bg-dark ">
+                <img crossOrigin='anonymous' ref={imageRef} className="left-0 top-0 opacity-90 w-full h-64 object-cover absolute" src={ImageSource} alt="" />
 
                 <div className="z-10 relative flex flex-col justify-between h-[100%]">
                     <button className="flex items-center gap-2">
@@ -67,7 +67,7 @@ export default function AlbumView(
             <div className="space-y-3 pt-2 px-6 flex-grow h-max bg-[#000]/85">
                 <h4 className=' font-bold'>Suas favoritas</h4>
                 
-                <div className='space-y-2'>
+                <div>
                     <SongItem Title="Easy" Subtitle="Troye Sivan" />
                     <SongItem Title="Easy" Subtitle="Troye Sivan" />
                     <SongItem Title="Easy" Subtitle="Troye Sivan" />

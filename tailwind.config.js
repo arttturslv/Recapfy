@@ -9,7 +9,9 @@ export default {
       transparent: 'transparent',
       current: 'currentColor',
       'dark': '#111111',
-      'light': '#FFFFFF', 
+      'light': '#FFFFFF',
+      'green': '#1DB954',
+      'grey': '#333333'
     },
     extend: {},
   },

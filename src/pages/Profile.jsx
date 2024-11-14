@@ -3,6 +3,7 @@ import chevronIcon from '../assets/chevronIcon.png'
 import shareIcon from '../assets/shareIcon.png'
 
 import { getImageColor } from '../hooks/Utils'
+import GoBackButton from '../components/GoBackButton'
 
 export default function Profile(
     {
@@ -23,15 +24,15 @@ export default function Profile(
     return (
         <div  className="text-[white] h-full flex flex-col bg-dark">
 
-            <div ref={backgroundRef} className='pt-4'>
-                <div className="flex flex-row justify-between px-6">
-                    <button className="flex items-center gap-2">
-                        <img src={chevronIcon} alt="" />
-                    </button>
-                    <button className="flex items-center gap-2">
-                        <img src={shareIcon} alt="" />
-                    </button>
+            <div ref={backgroundRef} className='pt-4 '>
+                <div className='px-6'>
+                    <GoBackButton>
+                        <button className="flex items-center gap-2">
+                            <img src={shareIcon} alt="" />
+                        </button>
+                    </GoBackButton>
                 </div>
+
 
                 <div className='flex flex-col items-center py-3 bg-gradient-to-t from-dark '>
                     <div>

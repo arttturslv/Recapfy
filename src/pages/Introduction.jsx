@@ -1,5 +1,5 @@
 import backgroundImagea from '../assets/bg.png'
-
+import { Link } from 'react-router-dom'
 export default function Introduction () {
     return (
         <div className="bg-[url('./assets/bg.png')] bg-cover pt-4 px-6 text-light h-full  flex flex-col ">
@@ -23,9 +23,9 @@ export default function Introduction () {
                     </ul>
                 </div>
             </div>
-            <button className='w-full my-8 px-4 py-2 hover:bg-dark hover:text-green bg-green text-dark font-medium rounded-3xl '>
+            <Link to={'home'} className='w-full my-8 text-center px-4 py-2 hover:bg-dark hover:text-green bg-green text-dark font-medium rounded-3xl '>
                 Conectar-se
-            </button>
+            </Link>
         </div>
     )
 }

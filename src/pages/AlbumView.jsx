@@ -1,13 +1,13 @@
 import { useRef, useEffect } from 'react'
 import chevronIcon from '../assets/chevronIcon.png'
 import playIcon from '../assets/playIcon.png'
-
+import GoBackButton from '../components/GoBackButton'
 import SongItem from '../components/SongItem'
 import { getImageColor } from '../hooks/Utils'
 export default function AlbumView(
     {
         ImageSource = "https://upload.wikimedia.org/wikipedia/pt/f/fb/Beatles-one.jpg", 
-        Title, SubTitle, OuvintesQNT, URL }) {
+        Title="Rolling", SubTitle, OuvintesQNT, URL }) {
     const imageRef = useRef()
     const backgroundRef = useRef()
 
@@ -26,10 +26,8 @@ export default function AlbumView(
                 <img crossOrigin='anonymous' ref={imageRef} className="left-0 top-0 opacity-90 w-full h-64 object-cover absolute" src={ImageSource} alt="" />
 
                 <div className="z-10 relative flex flex-col justify-between h-[100%]">
-                    <button className="flex items-center gap-2">
-                        <img src={chevronIcon} alt="" />
-                        <p className="font-bold">Album "{Title}"</p>
-                    </button>
+                    <GoBackButton Title={`Album "${Title}"`}></GoBackButton>
+
                     <div>
                         <h3 className="font-black text-4xl">{Title}</h3>
                         <span className="text-sm"><strong>{SubTitle} • </strong> {OuvintesQNT/1000} mil ouvintes</span>

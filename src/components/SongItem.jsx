@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import playlistIcon from '../assets/playlistIcon.png'
 
 export default function SongItem(
@@ -5,7 +6,7 @@ export default function SongItem(
         ImageSource="https://upload.wikimedia.org/wikipedia/pt/f/fb/Beatles-one.jpg", 
         Title, Subtitle, URL, duration}) {
     return (
-        <div className='flex flex-row items-center gap-2 p-2 rounded-md hover:bg-light/20'>
+        <Link to={'/album'} className='flex flex-row items-center gap-2 p-2 rounded-md hover:bg-light/20'>
         <span className='text-sm'>1</span>
         <div className='flex items-center justify-between w-full'>
             <div className='flex gap-2'>
@@ -23,6 +24,6 @@ export default function SongItem(
             </div>
 
         </div>
-    </div>
+    </Link>
     )
 }

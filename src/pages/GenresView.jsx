@@ -1,25 +1,21 @@
 import chevronIcon from '../assets/chevronIcon.png'
 import shareIcon from '../assets/shareIcon.png'
+import GoBackButton from '../components/GoBackButton'
 
 export default function GenresView() {
 
     return (
         <div  className="text-[white] h-full space-y-4 flex flex-col pt-4 px-6 bg-dark">
 
-            <div>
-                <div className="flex flex-row justify-between">
-                    <button className="flex items-center gap-2">
-                        <img src={chevronIcon} alt="" />
-                        <p className="font-bold">Gêneros mais ouvidos</p>
-                    </button>
-                </div>
+            <span>
+                <GoBackButton Title="Gêneros mais ouvidos"></GoBackButton>
 
                 <div className='flex flex-col items-center py-3 bg-gradient-to-t from-dark '>
-                    <div className='flex justify-center py-2'>
+                    <span className='flex justify-center py-2'>
                         <img src="https://i.imgur.com/BMW4nxr.png" alt="" />
-                    </div>
+                    </span>
                 </div>
-            </div>
+            </span>
 
             <div className="flex flex-row justify-between pr-5">
                 <div className='space-x-2'>

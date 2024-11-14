@@ -3,7 +3,7 @@ import chevronIcon from '../assets/chevronIcon.png'
 import playIcon from '../assets/playIcon.png'
 
 import SongItem from '../components/SongItem'
-
+import { getImageColor } from '../hooks/Utils'
 export default function AlbumView(
     {
         ImageSource = "https://upload.wikimedia.org/wikipedia/pt/f/fb/Beatles-one.jpg", 
@@ -13,33 +13,9 @@ export default function AlbumView(
 
     useEffect(() => {
         if(imageRef.current && backgroundRef.current) {
-            const canvas =  document.createElement('canvas');
-            const ctx = canvas.getContext("2d");
-
-            console.log("1");
-            imageRef.current.onload = () => {
-                console.log("2");
-
-                canvas.width = imageRef.current.width;
-                canvas.height = imageRef.current.height;
-                ctx.drawImage(imageRef.current, 0, 0);
-
-                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height)
-        
-                let r = imageData.data[0]; 
-                let g = imageData.data[1]; 
-                let b = imageData.data[2]; 
-                let a = imageData.data[3]; 
-    
-                backgroundRef.current.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`;
-
-            };
-
-            if (imageRef.current.complete) {
-                imageRef.current.onload();
-              }
+            const [r,g,b,a] = getImageColor(imageRef.current)
+            backgroundRef.current.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`;
         }
-
     }, [imageRef])
 
 

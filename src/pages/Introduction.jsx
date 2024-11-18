@@ -1,6 +1,21 @@
-import backgroundImagea from '../assets/bg.png'
-import { Link } from 'react-router-dom'
+import { Link, useLocation} from 'react-router-dom'
+import { SpotifyAuth, getAccessToken } from '../hooks/API'
+import { useEffect } from 'react';
 export default function Introduction () {
+    const location = useLocation();
+
+    useEffect(() => {
+        const hash = location.hash;
+        const accessToken = getAccessToken(hash)
+    
+        if(accessToken) {
+            console.log(accessToken)
+        }
+
+    }, [location])
+
+
+
     return (
         <div className="bg-[url('./assets/bg.png')] bg-cover pt-4 px-6 text-light h-full  flex flex-col ">
             <div className="space-y-4 flex-grow h-max pt-8">
@@ -23,7 +38,7 @@ export default function Introduction () {
                     </ul>
                 </div>
             </div>
-            <Link to={'home'} className='w-full my-8 text-center px-4 py-2 hover:bg-dark hover:text-green bg-green text-dark font-medium rounded-3xl '>
+            <Link onClick={SpotifyAuth} className='w-full my-8 text-center px-4 py-2 hover:bg-dark hover:text-green bg-green text-dark font-medium rounded-3xl '>
                 Conectar-se
             </Link>
         </div>

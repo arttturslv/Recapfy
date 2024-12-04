@@ -5,7 +5,7 @@ export default function ArtistElement(
             ArtistName
         }) {
     return (
-        <Link to={'/artists'} className="flex-none flex flex-col items-center space-y-[0.1rem] ">
+        <Link to={`/artists/${ArtistName}`} className="flex-none flex flex-col items-center space-y-[0.1rem] ">
             <img className="rounded-full size-[5rem]" src={ImageSource} alt="" />
             <p className="font-medium text-[white] text-[0.7rem] text-center">{ArtistName}</p>
         </Link>

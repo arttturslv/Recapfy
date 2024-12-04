@@ -17,7 +17,7 @@ export default function Introduction () {
 
 
     return (
-        <div className="bg-[url('./assets/bg.png')] bg-cover pt-4 px-6 text-light h-full  flex flex-col ">
+        <div className="bg-[url('./assets/bg.png')] bg-cover pt-4 px-6 text-light  flex flex-col ">
             <div className="space-y-4 flex-grow h-max pt-8">
                 <span>
                     <h1 className="font-black text-3xl">Recapfy</h1>

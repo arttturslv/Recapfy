@@ -62,14 +62,13 @@ export default function FavArtists() {
     return (
         <div
             ref={backgroundRef}
-            className="flex h-full flex-col overflow-y-scroll text-[white] transition-all "
-        >
-            <div className="bg-dark">
+            className="flex h-[100vh] w-[100vw] flex-col overflow-hidden overflow-y-scroll  text-[white] transition-all"        >
+            <div>
                 <div
                     crossOrigin="anonymous"
                     ref={imageRef}
-                    style={{ backgroundImage: `URL(${artist?.images[0].url})` }}
-                    className="flex h-64 flex-col justify-between bg-cover bg-fixed px-6 py-2 pb-2"
+                    style={{ backgroundImage: `URL(${artist?.images[0].url})`, backgroundSize: 'cover', backgroundPosition: 'center center' }}
+                    className="flex h-64 flex-col justify-between bg-fixed px-6 py-2 pb-2"
                 >
                     <GoBackButton Title={`Artista`}></GoBackButton>
                     <div className="flex justify-between">
@@ -89,7 +88,7 @@ export default function FavArtists() {
                 </div>
             </div>
 
-            <div className="h-max flex-grow space-y-3 bg-gradient-to-t from-[#000]  to-[#000]/60 px-6 pt-2">
+            <div className="h-[100%] bg-gradient-to-t from-[#000]  to-[#000]/60 px-6 pt-2">
                 <h4 className="font-bold">Seus albums favoritos</h4>
                     <>
                     {

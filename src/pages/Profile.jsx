@@ -104,7 +104,7 @@ export default function Profile() {
     }
 
     return (
-        <div className="flex flex-col bg-dark text-[white]">
+        <div className="h-[100vh] w-[100vw] overflow-hidden overflow-y-scroll pb-16 text-[white]">
             <div ref={backgroundRef} className="pt-4">
                 <div className="px-6">
                     <GoBackButton>
@@ -170,10 +170,13 @@ export default function Profile() {
 
                 <div className="h-max flex-grow space-y-3 px-6 pt-2">
                     <h4 className="font-bold">Suas estatisticas</h4>
-                    <div className="flex gap-2 py-2 flex-row flex-wrap">
+                    <div className="flex flex-row flex-wrap gap-2 py-2">
                         <span className="rounded-lg bg-[#212121] px-4 py-2 text-center">
                             <strong className="text-lg">
-                                ≅{ new Intl.NumberFormat('de-DE').format(totalTracks * 3)}
+                                ≅
+                                {new Intl.NumberFormat('de-DE').format(
+                                    totalTracks * 3
+                                )}
                             </strong>
                             <p className="text-sm text-[white]/80">
                                 Minutos ouvidos
@@ -190,9 +193,12 @@ export default function Profile() {
 
                         <span className="rounded-lg bg-[#212121] px-4 py-2 text-center">
                             <strong className="text-lg">
-                                ≅{ new Intl.NumberFormat('de-DE').format(totalArtists)}
+                                ≅
+                                {new Intl.NumberFormat('de-DE').format(
+                                    totalArtists
+                                )}
                             </strong>
-                            
+
                             <p className="text-sm text-[white]/80">
                                 Artistas ouvidos
                             </p>

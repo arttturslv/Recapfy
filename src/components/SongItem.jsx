@@ -6,7 +6,7 @@ export default function SongItem(
         ImageSource="https://upload.wikimedia.org/wikipedia/pt/f/fb/Beatles-one.jpg", 
         Title, Subtitle, URL, duration, index}) {
     return (
-        <Link className='flex flex-row items-center gap-2 y-2 rounded-md hover:bg-light/20'>
+        <Link className='flex flex-row items-center gap-2 py-2 rounded-md hover:bg-light/20'>
         <div className='flex items-center justify-between w-full'>
             <div className='flex gap-2'>
                 <div className='flex justify-center items-center gap-2'>

@@ -49,7 +49,7 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <div className=" bg-dark w-full  flex flex-col" >
+    <div className=" bg-dark w-[100vw] flex flex-col" >
     <RouterProvider router={router} />
       {/* <BottomNavigation></BottomNavigation> */}
     </div>

@@ -1,7 +1,7 @@
-import { getCurrentUsersProfile, getUsersTopItems } from "./UsersMethods";
+import { getCurrentUsersProfile, getUsersTopItems, getCurrentUsersPlaylists } from "./UsersMethods";
 var client_id = import.meta.env.VITE_CLIENT_ID;
 var redirect_uri = import.meta.env.VITE_STATUS === "DEV"? 'http://localhost:5173/': "http://recapfy.artttur.com/";
-var scope = 'user-read-private user-read-email user-top-read';
+var scope = 'user-read-private user-read-email user-top-read playlist-read-private';
 var state = generateRandomString(16);
 localStorage.setItem("stateKey", state);
 
@@ -35,6 +35,8 @@ export async function getAccessToken(hash) {
 
         if(accessToken) {
             await getCurrentUsersProfile(accessToken);
+            const playlists = await getCurrentUsersPlaylists(accessToken);
+
             const artistsLong = await getUsersTopItems("artists", accessToken, 2, 'long_term');
             const tracksLong = await getUsersTopItems("tracks", accessToken, 2, 'long_term');
 

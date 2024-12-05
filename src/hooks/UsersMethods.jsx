@@ -34,6 +34,37 @@ export async function getCurrentUsersProfile(authBearer) {
     }
 }
 
+export async function getCurrentUsersPlaylists(authBearer) {
+    let userPlaylists = getFromLocal('USER_PLAYLISTS');
+
+    if (userPlaylists == null) {
+        console.log("User playlist state is null. Getting api data.");
+        
+        try {
+            const res = await axios.get(`${API}/me/playlists?offset=0&limit=20`, {
+                headers: {
+                    'Authorization': `Bearer ${authBearer}`
+                }
+            });
+            console.log("Recebendo /me/playlists");
+
+            console.log("chegando", res.data);
+
+            setToLocal('USER_PLAYLISTS', res.data);
+
+            return res.data; // Agora retorna corretamente os dados filtrados
+        } catch (err) {
+            console.error("Erro encontrado: ", err);
+            return null; // Retorna null ou algum valor padrão em caso de erro
+        }
+    } else {
+        console.log("Já tenho dados, mostrando do local: ", userPlaylists);
+        return userPlaylists; // Retorna os dados do local caso não precise fazer a requisição
+    }
+}
+
+
+
 /**
  * The function receives the data returned by the API and extract the essential data to be stored.
  * @param {string} data All user profile information;

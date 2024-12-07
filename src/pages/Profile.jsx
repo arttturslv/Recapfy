@@ -119,18 +119,11 @@ export default function Profile() {
                             <h4 className="text-center text-2xl font-bold sm:text-6xl">
                                 {user?.name}
                             </h4>
-                            <div className="flex justify-around text-center">
+                            <div className="flex max-sm:justify-around max-sm:text-center">
                                 <span className="sm:flex sm:items-center sm:gap-1">
                                     <strong>{user?.followers}</strong>
                                     <p className="text-center text-sm text-[white]/80 max-sm:uppercase">
                                         seguidores
-                                    </p>
-                                </span>
-                                <p className="max-sm:hidden">•</p>
-                                <span className="sm:flex sm:items-center sm:gap-1">
-                                    <strong>{user?.following}</strong>
-                                    <p className="text-center text-sm text-[white]/80 max-sm:uppercase">
-                                        seguindo
                                     </p>
                                 </span>
                             </div>
@@ -172,7 +165,7 @@ export default function Profile() {
 
                 <div className="h-max flex-grow space-y-2 px-6 pt-2">
                     <h4 className="font-bold text-xl">Playlists públicas</h4>
-                    <div className="flex flex-row flex-wrap gap-2 py-2">
+                    <div className="flex flex-row flex-wrap sm:gap-2 py-2">
                         {playlists?.items.map((item) => {
                             if (
                                 item.owner.display_name === user.name &&

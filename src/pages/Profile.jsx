@@ -1,10 +1,13 @@
 import { useRef, useEffect, useState } from 'react'
-import chevronIcon from '../assets/chevronIcon.png'
 import shareIcon from '../assets/shareIcon.png'
 import { getFromLocal } from '../hooks/LocalStorage'
 import { getImageColor } from '../hooks/Utils'
 import GoBackButton from '../components/GoBackButton'
 import BottomNavigation from '../components/BottomNavigation'
+import { countGenres } from '../hooks/Utils'
+import StaticsElement from '../components/StaticsElement'
+import ErrorPage from './ErrorPage'
+
 import {
     Radar,
     RadarChart,
@@ -14,65 +17,49 @@ import {
     ResponsiveContainer,
 } from 'recharts'
 import { getAllItems } from '../hooks/LocalStorage'
+import PlaylistElement from '../components/PlaylistElement'
 export default function Profile() {
     const [artists, setArtists] = useState([])
     const [allGenres, setAllGenres] = useState([])
     const [graphData, setGraphData] = useState()
     const [totalTracks, setTotalTracks] = useState()
     const [totalArtists, setTotalArtists] = useState()
+    const [hasError, setHasError] = useState()
+    const [playlists, setPlaylists] = useState()
+    const [user, setUser] = useState()
 
     useEffect(() => {
-        let artists = getAllItems('artists')
-        let tracks = getAllItems('tracks')
-
-        let artistsItems = artists.items
-
-        setTotalTracks(tracks.long_total)
-        setTotalArtists(artists.long_total)
-
-        countGenres(artistsItems)
-        setArtists(artistsItems)
-    }, [])
-
-    //para calcular o tempo gasto por genero, tenho que pegar os artistas e pegar todos os generos
-    // e depois contar quantas vezes cada um aparece.
-    var highestValue = 0
-    function countGenres(allArtists) {
-        const genres = new Map()
-        for (const artist of allArtists) {
-            for (const genre of artist.genres) {
-                if (genres.has(genre)) {
-                    let val = genres.get(genre)
-                    val++
-                    genres.set(genre, val)
-
-                    if (highestValue < val) {
-                        highestValue == val
-                    }
-                } else {
-                    genres.set(genre, 1)
-                }
-            }
+        let artists, tracks, playlists, user;
+        try {
+            artists = getAllItems('artists')
+            playlists = getFromLocal('USER_PLAYLISTS');
+            user = getFromLocal('USER_PROFILE');
+            let genresCount = countGenres(artists.items)
+            formatDataForGraph(genresCount)
+            setAllGenres(genresCount)
+            tracks = getAllItems('tracks')
+        } catch (error) {
+            setHasError(error)
         }
 
-        let array = Array.from(genres)
+        setTotalTracks(tracks?.long_total)
+        setTotalArtists(artists?.long_total)
+        setArtists(artists?.items);
+        setPlaylists(playlists)
+        setUser(user)
 
-        let arrayOrdenado = array.sort((a, b) => b[1] - a[1])
 
-        setAllGenres(arrayOrdenado)
+    }, [])
 
-        const result = arrayOrdenado.slice(0, 6).map(([name, value]) => ({
+    function formatDataForGraph(data) {
+        const result = data.slice(0, 5).map(([name, value]) => ({
             name,
             value,
         }))
 
-        console.log(result)
-
         setGraphData(result)
     }
 
-    const [user, setUser] = useState(getFromLocal('USER_PROFILE'))
-    const [playlists, setPlaylists] = useState(getFromLocal('USER_PLAYLISTS'))
 
     const imageRef = useRef()
     const backgroundRef = useRef()
@@ -81,35 +68,36 @@ export default function Profile() {
     useEffect(() => {
         const fetchData = async () => {
             if (user.profile_image != null) {
-                console.log('ee: ', user.profile_image)
-
-                let divWithBackgroundImage =
-                    imageRef.current.style.backgroundImage
                 let imageURL = user.profile_image
 
                 const [r, g, b, a] = await getImageColor(imageURL)
-
                 backgroundRef.current.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
                 backgroundRef2.current.style.backgroundColor = `rgba(${r}, ${g}, ${b}, ${a})`
-
             }
         }
         fetchData()
     }, [imageRef.current, backgroundRef.current])
 
     function ArtistPopularity() {
-        console.log(artists[0])
         let popularity = 0
         for (const artist of artists) {
             popularity += artist.popularity
         }
-
         return popularity / artists.length
     }
 
+    if (hasError) {
+        return (
+            <ErrorPage
+                pageTitle={'Home'}
+                error={hasError}
+                message={'Não conseguimos localizar seus dados.'}
+            />
+        )
+    } else {
     return (
         <div className="h-[100vh] w-[100vw] overflow-hidden overflow-y-scroll pb-16 text-[white]">
-            <div ref={backgroundRef} className="pt-4 ">
+            <div ref={backgroundRef} className="pt-4">
                 <div className="px-6">
                     <GoBackButton>
                         <button className="flex items-center gap-2">
@@ -123,26 +111,19 @@ export default function Profile() {
                         <img
                             crossOrigin="anonymous"
                             ref={imageRef}
-                            className="h-44 w-auto rounded-full sm:h-48 shadow-2xl"
-                            src={user.profile_image}
+                            className="h-44 w-auto rounded-full shadow-2xl sm:h-48"
+                            src={user?.profile_image}
                             alt=""
                         />
                         <div>
-                            <h4 className="text-center text-2xl font-bold sm:text-6xl ">
-                                {user.name}
+                            <h4 className="text-center text-2xl font-bold sm:text-6xl">
+                                {user?.name}
                             </h4>
-                            <div className="flex justify-around text-center">
-                                <span className='sm:flex sm:items-center sm:gap-1'>
-                                    <strong>{user.followers}</strong>
-                                    <p className="text-sm text-center text-[white]/80 max-sm:uppercase">
+                            <div className="flex max-sm:justify-around max-sm:text-center">
+                                <span className="sm:flex sm:items-center sm:gap-1">
+                                    <strong>{user?.followers}</strong>
+                                    <p className="text-center text-sm text-[white]/80 max-sm:uppercase">
                                         seguidores
-                                    </p>
-                                </span>
-                                <p className='max-sm:hidden'>•</p>
-                                <span className='sm:flex sm:items-center sm:gap-1'>
-                                    <strong>34</strong>
-                                    <p className="text-sm text-center text-[white]/80 max-sm:uppercase">
-                                        seguindo
                                     </p>
                                 </span>
                             </div>
@@ -151,10 +132,13 @@ export default function Profile() {
                 </div>
             </div>
 
-            <div  className="h-max flex-grow pb-10 bg-dark">
-                <div  ref={backgroundRef2} className="h-max flex-grow space-y-2 px-6 pt-2 bg-gradient-to-t from-dark to-dark/60">
-                    <h4 className="font-bold ">Gêneros mais ouvidos</h4>
-                    <span className="flex h-40 sm:h-60 items-center justify-center ">
+            <div className="h-max flex-grow bg-dark pb-10">
+                <div
+                    ref={backgroundRef2}
+                    className="h-max flex-grow space-y-2 bg-gradient-to-t from-dark to-dark/60 px-6 pt-2"
+                >
+                    <h4 className="font-bold text-xl">Gêneros mais ouvidos</h4>
+                    <span className="flex h-40 items-center justify-center sm:h-60">
                         <ResponsiveContainer width="100%" height="100%">
                             <RadarChart
                                 cx="50%"
@@ -180,78 +164,58 @@ export default function Profile() {
                 </div>
 
                 <div className="h-max flex-grow space-y-2 px-6 pt-2">
-                    <h4 className="font-bold">Playlists públicas</h4>
-                    <div className="flex flex-row flex-wrap gap-2 py-2">
-                    {
-                        playlists?.items.map((item)=> {
-                            if(
-                                item.owner.display_name===user.name && 
-                                item.name !== "My recommendation playlist" &&
+                    <h4 className="font-bold text-xl">Playlists públicas</h4>
+                    <div className="flex flex-row flex-wrap sm:gap-2 py-2">
+                        {playlists?.items.map((item) => {
+                            if (
+                                item.owner.display_name === user.name &&
+                                item.name !== 'My recommendation playlist' &&
                                 item.public === true
-                                ) {
-                                    console.log(item.name + " - " + item.public)
+                            ) {
                                 return (
-                                    <div className='w-32 sm:w-48 bg-grey/20 py-3 px-3 space-y-1 rounded-lg'> 
-                                        <img 
-                                        className='w-full rounded-md'
-                                        src={item.images[0].url} alt="" srcset="" />
-                                        <p className='text-sm text-wrap'>{item.name}</p>
-                                    </div> 
-                                    )
+                                    <PlaylistElement
+                                        key={item.id}
+                                        url={item.external_urls.spotify}
+                                        imageSource={item.images[0].url}
+                                        title={item.name}
+                                    />
+                                )
                             }
-                        })
-                    }
+                        })}
                     </div>
                 </div>
 
                 <div className="h-max flex-grow space-y-2 px-6 pt-2">
-                    <h4 className="font-bold">Suas estatisticas</h4>
+                    <h4 className="font-bold text-xl">Suas estatisticas</h4>
                     <div className="flex flex-row flex-wrap gap-2 py-2">
-                        <span className="rounded-lg bg-[#212121] px-4 py-2 text-center">
-                            <strong className="text-lg">
-                                ≅
-                                {new Intl.NumberFormat('de-DE').format(
-                                    totalTracks * 3
-                                )}
-                            </strong>
-                            <p className="text-sm text-[white]/80">
-                                Minutos ouvidos
-                            </p>
-                        </span>
-                        <span className="rounded-lg bg-[#212121] px-4 py-2 text-center">
-                            <strong className="text-lg">
-                                ≅
-                                {totalTracks}
-                            </strong>
-                            <p className="text-sm text-[white]/80">
-                                Músicas ouvidas
-                            </p>
-                        </span>
-                        <span className="rounded-lg bg-[#212121] px-4 py-2 text-center">
-                            <strong className="text-lg">
-                                {ArtistPopularity()}
-                            </strong>
-                            <p className="text-sm text-[white]/80">
-                                Popularidade dos artistas
-                            </p>
-                        </span>
+                        <StaticsElement
+                            title={new Intl.NumberFormat('de-DE').format(
+                                totalTracks * 3
+                            )}
+                            subtitle={'Minutos ouvidos'}
+                        ></StaticsElement>
 
-                        <span className="rounded-lg bg-[#212121] px-4 py-2 text-center">
-                            <strong className="text-lg">
-                                ≅
-                                {new Intl.NumberFormat('de-DE').format(
-                                    totalArtists
-                                )}
-                            </strong>
+                        <StaticsElement
+                            title={'≅' + totalTracks}
+                            subtitle={'Músicas ouvidas'}
+                        ></StaticsElement>
 
-                            <p className="text-sm text-[white]/80">
-                                Artistas ouvidos
-                            </p>
-                        </span>
+                        <StaticsElement
+                            title={ArtistPopularity()}
+                            subtitle={'Popularidade dos artistas'}
+                        ></StaticsElement>
+
+                        <StaticsElement
+                            title={new Intl.NumberFormat('de-DE').format(
+                                totalTracks
+                            )}
+                            subtitle={'Artistas ouvidos'}
+                        ></StaticsElement>
                     </div>
                 </div>
             </div>
             <BottomNavigation></BottomNavigation>
         </div>
     )
+}
 }

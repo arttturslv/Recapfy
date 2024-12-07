@@ -4,7 +4,7 @@ import profileIcon from '../assets/profile.png'
 
 export default function BottomNavigation() {
     return (
-        <div className="absolute bottom-0 w-full flex h-[3.5rem] justify-between bg-gradient-to-t to-[#000]/20 from-[#000] px-8">
+        <div className="fixed bottom-0 w-full flex h-[3.5rem] justify-between bg-gradient-to-t to-[#000]/20 from-[#000] px-16">
             <Link
                 to={'/home'}
                 className="flex flex-col items-center justify-center"

@@ -5,7 +5,6 @@ import './index.css'
 import Introduction from './pages/Introduction.jsx'
 
 import Home from "./pages/Home"
-import BottomNavigation from "./components/BottomNavigation"
 import AlbumView from "./pages/AlbumView"
 import Profile from "./pages/Profile"
 import ArtistView from "./pages/ArtistView.jsx"

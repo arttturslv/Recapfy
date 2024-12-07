@@ -25,9 +25,14 @@ export function setToLocal(name, value) {
 }
 
 export function getAllItems(ItemsType) {
+    let long_Tracks, medium_Tracks;
 
-    let long_Tracks = getItemsByRange(ItemsType, 'long_term');
-    let medium_Tracks = getItemsByRange(ItemsType, 'medium_term');
+    try {
+        long_Tracks = getItemsByRange(ItemsType, 'long_term');
+        medium_Tracks = getItemsByRange(ItemsType, 'medium_term');
+    } catch (error) {
+        throw new Error(error);
+    }
 
     let allTracks = [...long_Tracks.items, ...medium_Tracks.items];
 
@@ -51,5 +56,10 @@ export function getItemsByRange(ItemsType, time_range) {
         default:
             throw new Error("ItemsType is not type 'tracks' || 'artists'.")
     }
+
+    if(itemsRanged==null) {
+        throw new Error(ItemsType +" - "+ time_range +" está nulo.")
+    }
+
     return itemsRanged;
 }

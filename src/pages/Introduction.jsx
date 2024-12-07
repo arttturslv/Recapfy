@@ -14,11 +14,11 @@ export default function Introduction() {
     }, [location])
 
     return (
-        <div className="flex h-[100vh] w-[100vw] flex-col overflow-x-hidden overflow-y-scroll bg-[url('./assets/bg.png')] bg-cover px-6 pt-4 text-[white]">
-            <div className="flex-1 space-y-4 pt-8">
+        <div className="flex h-[100dvh] w-[100vw] flex-col justify-between overflow-x-hidden overflow-y-scroll bg-[url('./assets/bg.png')] bg-cover px-6 pt-4 text-[white]">
+            <div className="space-y-1">
                 <span>
                     <h1 className="text-3xl font-black">Recapfy</h1>
-                    <h2 className="text-[0.7rem] font-normal text-green">
+                    <h2 className="text-xs font-normal text-green">
                         Um pequeno explorador do Spotify
                     </h2>
                 </span>

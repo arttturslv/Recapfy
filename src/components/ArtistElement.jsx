@@ -5,8 +5,11 @@ export default function ArtistElement(
             ArtistName
         }) {
     return (
-        <Link to={`/artists/${ArtistName}`} className="flex-none flex flex-col items-center space-y-[0.1rem] ">
-            <img className="rounded-full size-[5rem]" src={ImageSource} alt="" />
+        <Link to={`/artists/${ArtistName}`} className="flex-none flex flex-col justify-center items-center space-y-[0.1rem]">
+            <div className="lg:h-44 sm:h-32 h-28 w-auto aspect-square">
+            <img className="rounded-full size-[100%] i" src={ImageSource} alt="" />
+
+            </div>
             <p className="font-medium text-[white] text-[0.7rem] text-center">{ArtistName}</p>
         </Link>
     )

@@ -1,4 +1,5 @@
-import DataNotFoundAnimation from '../assets/animations/dataNotFoundAnimation'
+import data_not_found from '../assets/animations/data_not_found.json'
+import Lottie from 'lottie-react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
@@ -20,7 +21,7 @@ export default function ErrorPage({ error, message, pageTitle }) {
                     {error.message}
                 </h5>
                 <div className="w-[20%]">
-                    <DataNotFoundAnimation></DataNotFoundAnimation>
+                    <Lottie animationData={data_not_found} ></Lottie>
                 </div>
                 <Link
                     onClick={()=> navigate(-1)}

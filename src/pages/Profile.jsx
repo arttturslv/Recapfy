@@ -89,7 +89,7 @@ export default function Profile() {
     if (hasError) {
         return (
             <ErrorPage
-                pageTitle={'Home'}
+                pageTitle={'Profile'}
                 error={hasError}
                 message={'Não conseguimos localizar seus dados.'}
             />
